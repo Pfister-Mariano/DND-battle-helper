@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+*::after,
+*::before {
+    @extend *;
+    pointer-events: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 10vh;
+}

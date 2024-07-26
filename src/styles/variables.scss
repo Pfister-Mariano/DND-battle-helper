@@ -1,0 +1,96 @@
+$color-red-100: #F87171;
+$color-red-50: #EFADAF;
+$color-red-25: #ECCDD0;
+
+$color-green-100: #4ADE80;
+$color-green-50: #97E3B6;
+$color-green-25: #C2EBD6;
+
+$color-dark: #000;
+$color-blue-dark: #334155;
+$color-blue-highlight: #0CA4E8;
+
+$color-blue-100: #A5CAF6;
+$color-blue-75: #cbd4e1;
+$color-blue-50: #dfe5ec;
+$color-blue-25: #ecf0f4;
+
+@font-face {
+    font-family: 'Satoshi';
+    src:
+        url('/fonts/Satoshi-Black.woff') format('woff'),
+        url('/fonts/Satoshi-Black.woff2') format('woff2');
+    font-display: swap;
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src:
+        url('/fonts/Satoshi-BlackItalic.woff') format('woff'),
+        url('/fonts/Satoshi-BlackItalic.woff2') format('woff2');
+    font-display: swap;
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src:
+        url('/fonts/Satoshi-Regular.woff') format('woff'),
+        url('/fonts/Satoshi-Regular.woff2') format('woff2');
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src:
+        url('/fonts/Satoshi-Italic.woff') format('woff'),
+        url('/fonts/Satoshi-Italic.woff2') format('woff2');
+    font-display: swap;
+    font-weight: normal;
+    font-style: italic;
+}
+
+:root {
+    font-family: 'Satoshi', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.25em;
+    color: $color-dark;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4  {
+    font-size: 1.5em;
+}
+
+h5 {
+    font-size: 1.25em;
+}
+
+h6  {
+    font-size: 1em;
+}

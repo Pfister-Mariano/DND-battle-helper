@@ -77,7 +77,7 @@ function addMonster(monster) {
 onMounted(
     async () => {
         try {
-            for (let i = 1; i <= 101; i++) {
+            for (let i = 0; i <= 101; i++) {
                 const response = await fetch('/data/' + i + '.json');
                 const data = await response.json();
 

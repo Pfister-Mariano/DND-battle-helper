@@ -43,7 +43,7 @@ section.overlay {
         height: 100%;
         width: 100%;
         max-width: 1500px;
-        height: 1000px;
+        /*height: 1000px;*/
         z-index: 3;
         background-color: $color-blue-25;
         border-radius: 25px;

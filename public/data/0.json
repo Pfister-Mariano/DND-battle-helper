@@ -1,0 +1,282 @@
+{
+	"_meta": {
+		"otherSources": {
+			"monster": {
+				"MPP": "AATM",
+				"MM": "AATM",
+				"MPMM": "AATM",
+				"VRGR": "AATM"
+			}
+		}
+	},
+	"monster": [
+		{
+			"name": "Trench Raider",
+			"source": "HOMEBREW",
+			"size": [
+				"M"
+			],
+			"type": "Humanoid",
+			"ac": [
+				{
+					"ac": 19
+				}
+			],
+			"hp": {
+				"average": 75,
+				"formula": "8d12 + 8"
+			},
+			"speed": {
+				"walk": 45
+			},
+			"str": 22,
+			"dex": 18,
+			"con": 24,
+			"int": 16,
+			"wis": 16,
+			"cha": 8,
+			"senses": [
+				"Darkvision 60 ft. (can see through smoke)"
+			],
+			"resist": [
+				"Bludgeoning",
+				"Piercing",
+				"Slashing from non-magic Attacks"
+			],
+			"cr": "7",
+			"trait": [
+				{
+					"name": "Resistant",
+					"entries": [
+						"Advantage on Strength, Dexterity and Constitution saving throws."
+					]
+				}
+			],
+			"action": [
+				{
+					"name": "Multiattack",
+					"entries": [
+						"The Trench Raider makes two Slam attacks."
+					]
+				},
+				{
+					"name": "Raider Club",
+					"entries": [
+						"{@atk mw} {@hit 10} to hit, reach 5 ft., one target. {@h}16 ({@damage 3d6 + 7}) bludgeoning damage."
+					]
+				},
+				{
+					"name": "Smoke",
+					"entries": [
+						"Throws a smoke granade, range 50F, Radius 15F, heavy obscurred area, all enemy creatures inside make a Const. saving throw or take 4D8 fire dmg or half as much on a successful save"
+					]
+				},
+				{
+					"name": "Missile",
+					"entries": [
+						"Turns 3 Stones into magic missiles over 2 Turns, 3 missiles that all hit automaticaly for 2D4 + 2 force dmg on hit"
+					]
+				}
+			],		
+			"bonus": [
+				{
+					"name": "Dodge",
+					"entries": [
+						"The Trench Raider makes the Dodge action. Disadvantage on all attack rolls against this creature"
+					]
+				},
+				{
+					"name": "Disengage",
+					"entries": [
+						"The Trench Raider makes the Disengage action. Doesn't provoke oportunity attacks"
+					]
+				},
+				{
+					"name": "Additional Attack",
+					"entries": [
+						"The Trench Raider makes another Attack with his Club action."
+					]
+				}
+			],		
+			"reaction": [
+				{
+					"name": "Parry",
+					"entries": [
+						"The Trench Raider gets +5 AC, if its a melee attack and it fails, the Trench Raider makes a counter attack with his Club."
+					]
+				}
+			]			
+		},
+		{
+			"name": "Cavalry Raider",
+			"source": "HOMEBREW",
+			"size": [
+				"M"
+			],
+			"type": "Humanoid",
+			"ac": [
+				{
+					"ac": "18 (22 Mounted)"
+				}
+			],
+			"hp": {
+				"average": "140",
+				"formula": "10d20 + 8"
+			},
+			"speed": {
+				"walk": 80
+			},
+			"str": 22,
+			"dex": 18,
+			"con": 18,
+			"int": 14,
+			"wis": 16,
+			"cha": 10,
+			"cr": "8",
+			"trait": [
+				{
+					"name": "Horse",
+					"entries": [
+						"HP 60, AC 16"
+					]
+				},
+				{
+					"name": "Mounted Combat",
+					"entries": [
+						"Has Advantage on attack Rolls on against enemy's on the ground."
+					]
+				}
+			],
+			"action": [
+				{
+					"name": "Multiattack",
+					"entries": [
+						"The Trench Raider makes two Saber attacks."
+					]
+				},
+				{
+					"name": "Saber",
+					"entries": [
+						"Melee, +7 to hit, reach 5 ft., one target. {@damage 2d6 + 5} slashing damage."
+					]
+				},
+				{
+					"name": "Lance Charge",
+					"entries": [
+						"Melee, +10 to hit, reach 10 ft., one target. {@damage 2d10 + 10} piercing damage. Make DC18 Dex save or fall prone"
+					]
+				},
+				{
+					"name": "Martini Henry",
+					"entries": [
+						"Ranged, +7 to hit, reach 50/150 ft., one target. {@damage 3d10 + 10} piercing damage. Crits if shot at exactly 30 feet range"
+					]
+				},
+				{
+					"name": "Gas Granade",
+					"entries": [
+						"Throws a gas granade, 30F Range, 20F Radius, Dis. on all attacks if inside, if longer than 3 Turns inside -> poisoned, Const save or 2D10 + 10 Poison dmg or halfed when success"
+					]
+				},
+				{
+					"name": "Bandages",
+					"entries": [
+						"Heals himself or the Horse for 4D10 + 15 HP -> takes 2 Turns"
+					]
+				}
+			],	
+			"reaction": [
+				{
+					"name": "Dodge",
+					"entries": [
+						"Targeting attack gets disadvantage"
+					]
+				}
+			]			
+		},
+		{
+			"name": "Tank Raider",
+			"source": "HOMEBREW",
+			"size": [
+				"M"
+			],
+			"type": "Humanoid",
+			"ac": [
+				{
+					"ac": 17
+				}
+			],
+			"hp": {
+				"average": 60,
+				"formula": "8d8 + 7"
+			},
+			"speed": {
+				"walk": 40
+			},
+			"str": 16,
+			"dex": 24,
+			"con": 16,
+			"int": 16,
+			"wis": 16,
+			"cha": 12,
+			"senses": [
+				"Darkvision 300 ft."
+			],
+			"cr": "6",
+			"action": [
+				{
+					"name": "Multiattack",
+					"entries": [
+						"The Trench Raider makes two Ranged attacks."
+					]
+				},
+				{
+					"name": "Tank Rifle",
+					"entries": [
+						"Ranged, +7 to hit, reach 500/1000 ft., one target. {@damage 3d10 + 7} piercing damage. if the AC is over 20 the sniper has +14 to Atk. and an addtional +20 dmg"
+					]
+				},
+				{
+					"name": "Dagger",
+					"entries": [
+						"Melee, +6 to hit, reach 5 ft., one target. {@damage 2d8 + 4} slashing damage. 10F knockback on hit"
+					]
+				},
+				{
+					"name": "Snipe",
+					"entries": [
+						"Only make 1 attack with the Tank rifle but ignore 3/4 Cover and dmg dies cant be lower than 5"
+					]
+				},
+				{
+					"name": "Explsive Mine",
+					"entries": [
+						"30F Range, 10F Radius, sets 3 mines on the ground, when near -> Dex save or 6D8 + 10 Thunder dmg, halfed if successfull"
+					]
+				}
+			],		
+			"bonus": [
+				{
+					"name": "Hide",
+					"entries": [
+						"(3/3) Goes invisible for 1 Turn -> DC20 Perception check"
+					]
+				}
+			],		
+			"reaction": [
+				{
+					"name": "Barrel Roll",
+					"entries": [
+						"Jump 15 Feet without triggering Opportunity attacks"
+					]
+				},
+				{
+					"name": "Shield Spell",
+					"entries": [
+						"(2/2) +5 Ac -> Immune to magic missile and rifle shots"
+					]
+				}
+			]			
+		}
+	]
+}

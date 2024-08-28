@@ -5,17 +5,19 @@
                 <div class="monsterTableWrapper">
                     <div class="monsterTableRow" v-for="(dmg, index) in dealingDmg">
                         <input class="monsterTableTime" v-model="dmg.time">
-                        
+
                         <select v-model="dmg.name">
                             <option v-for="dmgType in allDmgTypes">{{ dmgType.replace(' damage', '') }}</option>
                         </select>
 
                         <!-- <input class="monsterTableName" v-model="dmg.name"> -->
-                        
-                        <div class="removeStatus" @click="deleteTableRow(index, dealingDmg)"><i class="fa-solid fa-xmark"></i></div>
+
+                        <div class="removeStatus" @click="deleteTableRow(index, dealingDmg)"><i
+                                class="fa-solid fa-xmark"></i></div>
                     </div>
 
-                    <div class="monsterTableRow addRow" @click="addTableRow(dealingDmg)"><i class="fa-solid fa-plus"></i>
+                    <div class="monsterTableRow addRow" @click="addTableRow(dealingDmg)"><i
+                            class="fa-solid fa-plus"></i>
                     </div>
                 </div>
                 <div class="dealDmgButton" @click="calcDmg(), dmgModal = false">Deal DMG</div>
@@ -48,8 +50,8 @@
                 <div class="monsterHpBar">
                     <div class="monsterHp">
                         <span>HP</span>
-                        <span><input type="text" v-model="currentHp" maxlength="4"> / <input type="text"
-                                v-model="maxHp" maxlength="4"></span>
+                        <span><input type="text" v-model="currentHp" maxlength="4"> / <input type="text" v-model="maxHp"
+                                maxlength="4"></span>
                     </div>
                     <div class="monsterSpeed">
                         <span>Speed</span>
@@ -92,13 +94,37 @@
                             <input :class="skill.type === 'save' ? 'monsterTableTime savingThrow' : 'monsterTableTime'"
                                 v-model="skill.time" maxlength="3">
                             <input class="monsterTableName" v-model="skill.name">
-                            <div class="removeStatus" @click="deleteTableRow(index, skills)"><i class="fa-solid fa-xmark"></i></div>
+                            <div class="removeStatus" @click="deleteTableRow(index, skills)"><i
+                                    class="fa-solid fa-xmark"></i></div>
                         </div>
-                        <div class="monsterTableRow addRow" @click="addTableRow(skills)"><i class="fa-solid fa-plus"></i></div>
+                        <div class="monsterTableRow addRow" @click="addTableRow(skills)"><i
+                                class="fa-solid fa-plus"></i></div>
                     </div>
                 </div>
             </div>
             <div class="monsterMainTab actionsTab" v-if="currentMonsterTab === 'actions'">
+                <div class="monsterSpellcasting">
+                    <div class="spellcastingOverlayButton" @click="spellcastingModal = true">Spellcasting</div>
+                    <Overlay v-if="spellcastingModal" @close="spellcastingModal = false">
+                        <div class="spelcastingInfo">
+                            <h5>Modifier: {{ props.monster.spellcasting[0].ability.toUpperCase() }}</h5><br>
+                        </div>
+                        <div class="monsterTable availableSpells">
+                            <div class="spellGroup" v-for="(spellGroup, index) in props.monster.spellcasting[0].daily">
+                                <div class="monsterTableRow titleRow">
+                                    <div class="spellGroupTitle">{{ index.charAt(0) }}x/per day</div>
+                                </div>
+                                <div class="monsterTableRow" v-for="spell in spellGroup">{{ spell.replaceAll('{@spell ',
+                                    '').replaceAll('}', '') }}</div>
+                            </div>
+                            <div class="monsterTableRow titleRow" v-if="props.monster.spellcasting[0].will">
+                                <div class="spellGroupTitle">At will</div>
+                            </div>
+                            <div class="monsterTableRow" v-for="spell in props.monster.spellcasting[0].will">{{
+                                spell.replaceAll('{@spell ', '').replaceAll('}', '') }}</div>
+                        </div>
+                    </Overlay>
+                </div>
                 <div class="monsterTable actionTable">
                     <div class="monsterTableWrapper">
                         <div class="monsterTableRow" v-for="(action, index) in actions">
@@ -123,7 +149,8 @@
                     <div class="dmgResistance" v-if="dmgResistance.length > 0">
                         <div class="titleGreen">DMG Resistance</div>
                         <div class="listGreen">
-                            <span>{{ typeof dmgResistance === 'string' ? dmgResistance : dmgResistance.join(', ') }}</span>
+                            <span>{{ typeof dmgResistance === 'string' ? dmgResistance : dmgResistance.join(', ')
+                                }}</span>
                         </div>
                     </div>
 
@@ -137,7 +164,8 @@
                     <div class="conditionImmunity" v-if="conditionImmune.length > 0">
                         <div class="titleGreen">Condition Immunities</div>
                         <div class="listGreen">
-                            <span>{{ typeof conditionImmune === 'string' ? conditionImmune : conditionImmune.join(', ') }}</span>
+                            <span>{{ typeof conditionImmune === 'string' ? conditionImmune : conditionImmune.join(', ')
+                                }}</span>
                         </div>
                     </div>
 
@@ -169,15 +197,20 @@
 </template>
 
 <script setup>
+
+
+
 import { defineProps, onMounted, ref } from 'vue';
 import Overlay from '@/components/Overlay.vue'
 
 const dmgModal = ref(false)
+const spellcastingModal = ref(false)
 
 const props = defineProps({
     monster: Object,
     monsterIndex: String
 })
+
 
 /* HP TAB   */
 
@@ -383,12 +416,12 @@ function splitStringByPlaceholders(text, rechargeOnly = false) {
 
     let damageRolls = 0;
     let includedDamageType = getSpecificDmgTypes(text, allDmgTypes)
-   
+
     parts.filter(part => part.trim() !== '').map((part, index) => {
         let match = part.match(/\{@(.*?)\}/);
         if (match) {
             let key = match[1];
-            
+
             if (key.startsWith('atk ')) {
 
                 let atk = key.split('atk ')[1];
@@ -409,7 +442,7 @@ function splitStringByPlaceholders(text, rechargeOnly = false) {
                 let damage = key.split('damage ')[1];
                 damage = damage.split('d');
                 damage[1] = damage[1].split('+');
-                
+
                 let damageValue = {
                     diceNumbers: damage[0],
                     diceType: damage[1][0],
@@ -435,13 +468,13 @@ function splitStringByPlaceholders(text, rechargeOnly = false) {
 
 function getSpecificDmgTypes(mainString, searchArray) {
     let results = [];
-    
+
     searchArray.forEach(searchString => {
         let index = mainString.indexOf(searchString);
         if (index !== -1) {
             results.unshift(searchString);
         } else {
-            
+
         }
     })
 
@@ -505,6 +538,8 @@ if (props.monster.legendary !== undefined) {
     arrangeActions(props.monster.legendary)
 }
 
+
+
 /* PASSIVE TAB */
 let dmgResistance = []
 let dmgImmunity = []
@@ -541,8 +576,9 @@ if (props.monster.vulnerable !== undefined) {
     }
 }
 
-
-senses = props.monster.senses.join(', ')
+if (props.monster.senses) {
+    senses = props.monster.senses.join(', ')
+}
 traits = props.monster.trait
 
 
@@ -562,7 +598,7 @@ let dealingDmg = ref([
 function calcDmg() {
     dealingDmg.value.forEach(dmgInstance => {
         let finalDmg = dmgInstance.time;
-        
+
         if (typeof dmgResistance === 'string') {
             dmgResistance = dmgResistance.split(', ')
         }
@@ -570,7 +606,7 @@ function calcDmg() {
         if (typeof dmgImmunity === 'string') {
             dmgImmunity = dmgImmunity.split(', ')
         }
-        
+
         if (dmgResistance.some(type => type.includes(dmgInstance.name))) {
             finalDmg = finalDmg / 2
             console.log("dmg resistance: ", finalDmg, dmgInstance);
@@ -604,7 +640,7 @@ function calcDmg() {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    
+
     .monsterTable {
         position: relative;
         height: 100%;
@@ -693,7 +729,8 @@ function calcDmg() {
         padding: 20px;
         border-bottom: 3px solid $color-blue-dark;
         color: $color-blue-dark;
-        .monsterCardControls{
+
+        .monsterCardControls {
             opacity: 0;
             position: absolute;
             top: 0;
@@ -705,33 +742,40 @@ function calcDmg() {
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            &:hover{
+
+            &:hover {
                 opacity: 1;
                 background-color: $color-blue-25;
             }
-            > div{
+
+            >div {
                 display: flex;
                 flex-direction: row;
-                span{
+
+                span {
                     display: block;
                     padding: 8px 10px;
                     font-weight: bold;
                     font-size: 1.3rem;
                     cursor: pointer;
                 }
-                .controlDmg{
+
+                .controlDmg {
                     background-color: $color-red-100;
                     border-radius: 15px 0 0 15px;
                 }
-                .controlHeal{
+
+                .controlHeal {
                     background-color: $color-green-100;
                     border-radius: 0 15px 15px 0;
                 }
-                .controlEdit{
-                    background-color: $color-blue-100; 
+
+                .controlEdit {
+                    background-color: $color-blue-100;
                     border-radius: 15px 0 0 15px;
                 }
-                .controlCopy{
+
+                .controlCopy {
                     background-color: $color-blue-75;
                     border-radius: 0 15px 15px 0;
                 }
@@ -911,6 +955,19 @@ function calcDmg() {
             }
 
             &.actionsTab {
+                .spellcastingOverlayButton{
+                    display: inline-block;
+                    width: auto;
+                    height: 24px;
+                    line-height: 24px;
+                    text-align: center;
+                    font-weight: bold;
+                    background-color: $color-blue-dark;
+                    color: #fff;
+                    border-radius: 5px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
                 .monsterTable.actionTable {
                     .monsterTableRow {
                         height: auto;
@@ -932,49 +989,59 @@ function calcDmg() {
                 }
             }
 
-            &.passiveTab{
+            &.passiveTab {
                 gap: 0;
                 overflow-y: scroll;
+
                 .passiveTabWrapper {
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
 
-                    > div{
+                    >div {
                         border-radius: 10px;
                         overflow: hidden;
-                        > div{
+
+                        >div {
                             padding: 5px;
-                            &.titleGreen{
+
+                            &.titleGreen {
                                 font-weight: bold;
                                 font-size: 1.2rem;
                                 background-color: $color-green-50;
                             }
-                            &.listGreen{
+
+                            &.listGreen {
                                 background-color: $color-green-25;
                             }
-                            &.titleRed{
+
+                            &.titleRed {
                                 font-weight: bold;
                                 font-size: 1.2rem;
                                 background-color: $color-red-50;
                             }
-                            &.listRed{
+
+                            &.listRed {
                                 background-color: $color-red-25;
                             }
-                            &.titleSenses{
+
+                            &.titleSenses {
                                 font-weight: bold;
                                 font-size: 1.2rem;
                                 background-color: $color-blue-100;
                             }
-                            &.listSenses{
+
+                            &.listSenses {
                                 background-color: $color-blue-50;
                             }
-                            &.titleAbility{
+
+                            &.titleAbility {
                                 font-weight: bold;
                                 font-size: 1.2rem;
                                 background-color: $color-blue-75;
                             }
-                            &.listAbility{
+
+                            &.listAbility {
                                 background-color: $color-blue-50;
                             }
                         }
@@ -984,14 +1051,16 @@ function calcDmg() {
         }
     }
 
-    .monsterTable.dmgOverlay{
-        input{
+    .monsterTable.dmgOverlay {
+        input {
             all: unset;
         }
-        .monsterTableRow .monsterTableTime{
+
+        .monsterTableRow .monsterTableTime {
             width: 60px;
         }
-        .dealDmgButton{
+
+        .dealDmgButton {
             background-color: $color-red-100;
             font-size: 1.3rem;
             font-weight: bold;
@@ -1000,6 +1069,31 @@ function calcDmg() {
             border-radius: 15px;
             margin-top: 30px;
             cursor: pointer;
+        }
+    }
+
+    .monsterTable.availableSpells {
+        .monsterTableRow {
+            padding: 5px;
+            height: auto;
+
+            &:not(.titleRow) {
+                text-transform: capitalize;
+            }
+
+            .spellGroupTitle {
+                display: inline-block;
+                width: auto;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                font-weight: bold;
+                background-color: $color-blue-highlight;
+                color: #fff;
+                border-radius: 5px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
         }
     }
 }

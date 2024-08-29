@@ -23,28 +23,28 @@
                 <div class="dealDmgButton" @click="calcDmg(), dmgModal = false">Deal DMG</div>
             </div>
         </Overlay>
-
+        
         <div class="monsterCardSettings">
             <h4><span>{{ props.monsterIndex + 1 }}: </span>{{ props.monster.name }}</h4>
             <div class="monsterCardControls">
                 <div>
                     <span class="controlDmg" @click="dmgModal = true">DMG</span>
-                    <span class="controlHeal">HEAL</span>
+                    <!--<span class="controlHeal">HEAL</span>-->
                 </div>
                 <div>
-                    <span class="controlEdit">EDIT</span>
-                    <span class="controlCopy">COPY</span>
+                    <!-- <span class="controlEdit">EDIT</span> -->
+                    <span class="controlCopy" @click="copyCurrentMonster();">COPY</span>
                 </div>
             </div>
         </div>
+
         <div class="monsterTabSettings">
             <span @click="currentMonsterTab = 'hp'" :class="{ 'active': currentMonsterTab === 'hp' }">HP</span>
             <span @click="currentMonsterTab = 'stats'" :class="{ 'active': currentMonsterTab === 'stats' }">Stats</span>
-            <span @click="currentMonsterTab = 'actions'"
-                :class="{ 'active': currentMonsterTab === 'actions' }">Actions</span>
-            <span @click="currentMonsterTab = 'passive'"
-                :class="{ 'active': currentMonsterTab === 'passive' }">Passive</span>
+            <span @click="currentMonsterTab = 'actions'" :class="{ 'active': currentMonsterTab === 'actions' }">Actions</span>
+            <span @click="currentMonsterTab = 'passive'" :class="{ 'active': currentMonsterTab === 'passive' }">Passive</span>
         </div>
+        
         <div class="monsterMain">
             <div class="monsterMainTab hpTab" v-if="currentMonsterTab === 'hp'">
                 <div class="monsterHpBar">
@@ -198,10 +198,9 @@
 
 <script setup>
 
-
-
-import { defineProps, onMounted, ref } from 'vue';
+import { defineProps, onMounted, ref, defineEmits } from 'vue';
 import Overlay from '@/components/Overlay.vue'
+import Monster from '@/components/Monster.vue'
 
 const dmgModal = ref(false)
 const spellcastingModal = ref(false)
@@ -211,6 +210,11 @@ const props = defineProps({
     monsterIndex: String
 })
 
+const emit = defineEmits(['copyMonster']);
+
+function copyCurrentMonster() {
+    emit('copyMonster', props.monster)
+}
 
 /* HP TAB   */
 
@@ -884,6 +888,9 @@ function calcDmg() {
                         background-color: $color-red-50;
                         font-size: 1.3rem;
                         line-height: 1.7rem;
+                        input{
+                            width: 100px;
+                        }
                     }
                 }
 

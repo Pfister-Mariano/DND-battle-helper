@@ -4,8 +4,9 @@
          <SearchOverlay v-model="selectedMonster" />
       </Overlay>
    </Transition>
+
    <section class="monsterList">
-      <Monster v-for="(monster, index) in selectedMonster" :monster="monster" :monsterIndex="index" />
+      <Monster v-for="(monster, index) in selectedMonster" :monster="monster" :monsterIndex="index" @copyMonster="copyMonster"/>
       <div class="monsterSearchButton" @click="searchModal = true"><i class="fa-solid fa-plus"></i></div>
    </section>
 </template>
@@ -19,6 +20,12 @@ import { ref } from 'vue';
 
 const selectedMonster = ref([])
 const searchModal = ref(false)
+
+function copyMonster(monsterToCopy) {
+   console.log();
+   selectedMonster.value.push(monsterToCopy)
+}
+
 </script>
 
 <style lang="scss">

@@ -1,5 +1,4 @@
 <template>
-   <button id="overlaySearchButton" @click="searchModal = true">Open Search</button>
    <Transition>
       <Overlay v-if="searchModal" @close="searchModal = false">
          <SearchOverlay v-model="selectedMonster" />
@@ -9,15 +8,6 @@
       <Monster v-for="(monster, index) in selectedMonster" :monster="monster" :monsterIndex="index" />
       <div class="monsterSearchButton" @click="searchModal = true"><i class="fa-solid fa-plus"></i></div>
    </section>
-
-   <ol>
-      <li><h5>ToDo:</h5></li>
-      <li>Spellcasting</li>
-      <li>Edit Monster</li>
-      <li>Monster Homebrew</li>
-      <li>Copy Monster</li>
-   </ol>
-
 </template>
 
 <script setup>
@@ -33,6 +23,10 @@ const searchModal = ref(false)
 
 <style lang="scss">
 @import './styles/main.scss';
+
+#app{
+   padding-top: 2.5%;
+}
 
 .v-enter-active,
 .v-leave-active {
